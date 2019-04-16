@@ -32,6 +32,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     override func viewWillAppear(_ animated: Bool) {
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        subscribeToKeyboardNotification()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        unsubscribeToKeyboardNotification()
     }
 
     @IBAction func pickImageFromGallery(_ sender: Any) {
@@ -65,6 +70,30 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func getKeyboardHeight(_ notification: Notification) -> CGFloat {
+       let userInfo = notification.userInfo
+       let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+       return keyboardSize.cgRectValue.height
+    }
+    
+    @objc func keyboardWillShow(_ notification:Notification) {
+        view.frame.origin.y -= getKeyboardHeight(notification)
+    }
+    
+    @objc func keyboardWillHide(){
+        view.frame.origin.y = 0
+    }
+    
+    func subscribeToKeyboardNotification(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object:nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object:nil)
+    }
+    
+    func unsubscribeToKeyboardNotification(){
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 }
 
