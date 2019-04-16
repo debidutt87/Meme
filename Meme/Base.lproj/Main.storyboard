@@ -40,11 +40,27 @@
                                     <constraint firstAttribute="width" constant="321" id="kLU-Lq-2Me"/>
                                 </constraints>
                             </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="TOP" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfn-c7-kmO">
+                                <rect key="frame" x="163" y="232" width="49" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="BOTTOM" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TlK-Qb-81c">
+                                <rect key="frame" x="147" y="427" width="81" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="TlK-Qb-81c" firstAttribute="top" secondItem="zJ9-za-qaa" secondAttribute="bottom" constant="-44.5" id="1tP-Uj-d3I"/>
+                            <constraint firstItem="zJ9-za-qaa" firstAttribute="top" secondItem="sfn-c7-kmO" secondAttribute="bottom" constant="-46.5" id="9Es-bo-Lg3"/>
+                            <constraint firstItem="sfn-c7-kmO" firstAttribute="centerX" secondItem="zJ9-za-qaa" secondAttribute="centerX" id="SkB-GA-E7o"/>
                             <constraint firstItem="JcO-zf-uyx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Z8H-OY-lFX"/>
                             <constraint firstItem="zJ9-za-qaa" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="dPg-Mb-3Bw"/>
+                            <constraint firstItem="TlK-Qb-81c" firstAttribute="centerX" secondItem="zJ9-za-qaa" secondAttribute="centerX" id="fPT-28-gSD"/>
                             <constraint firstItem="zJ9-za-qaa" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="l1V-ET-OXc"/>
                             <constraint firstItem="JcO-zf-uyx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="mPD-iA-z8E"/>
                             <constraint firstItem="JcO-zf-uyx" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="y1W-FW-Ed6"/>
@@ -52,8 +68,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bottomText" destination="TlK-Qb-81c" id="8aN-Nx-CQr"/>
                         <outlet property="cameraButton" destination="FkU-wO-uDt" id="fic-Nm-1d3"/>
                         <outlet property="imagePickerView" destination="zJ9-za-qaa" id="OIb-gq-kuw"/>
+                        <outlet property="topText" destination="sfn-c7-kmO" id="Jhy-Si-Ykp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
