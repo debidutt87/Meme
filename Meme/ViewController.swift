@@ -24,11 +24,11 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     }
     
     let memeTextAttributes: [NSAttributedString.Key: Any] = [
-        NSAttributedString.Key.strokeColor: UIColor.black,
-        NSAttributedString.Key.foregroundColor: UIColor.white,
-        NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-        NSAttributedString.Key.strokeWidth:1.0,
-    ]
+        NSAttributedString.Key.foregroundColor : UIColor.white,
+        NSAttributedString.Key.strokeColor : UIColor.black,
+        NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+        NSAttributedString.Key.strokeWidth: -4.0,
+        ]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +40,27 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         shareButton.action = #selector(shareMemedImage)
     }
     
+    func setupTextField(tf: UITextField, text: String) {
+        tf.defaultTextAttributes = memeTextAttributes
+        tf.textColor = UIColor.white
+        tf.tintColor = UIColor.white
+        tf.textAlignment = .center
+        tf.text = text
+        tf.delegate = self
+    }
+    
     @objc func shareMemedImage(){
-        let vc = UIActivityViewController(activityItems: [generateMemedImage()], applicationActivities: [])
-        present(vc, animated: true)
+        let memedImage = generateMemedImage()
+        let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        
+        activityController.completionWithItemsHandler = { activity, completed, items, error in
+            if completed {
+                self.save()
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        present(activityController, animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,18 +72,26 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     override func viewWillDisappear(_ animated: Bool) {
         unsubscribeToKeyboardNotification()
     }
-
-    @IBAction func pickImageFromGallery(_ sender: Any) {
+    
+    func chooseImageFromCameraOrPhoto(source: UIImagePickerController.SourceType) {
         let pickerController = UIImagePickerController()
         pickerController.delegate = self
-        pickerController.sourceType = .photoLibrary
-        present(pickerController,animated: true,completion: nil)
+        pickerController.allowsEditing = true
+        pickerController.sourceType = source
+        present(pickerController, animated: true, completion: nil)
     }
-    @IBAction func pickImageFromCamera(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .camera
-        present(pickerController,animated: true,completion: nil)
+    
+    @IBAction func chooseImage(_ sender: Any){
+        switch (sender as AnyObject).tag {
+        case 1:
+            chooseImageFromCameraOrPhoto(source: .photoLibrary)
+            break;
+        case 2:
+            chooseImageFromCameraOrPhoto(source: .camera)
+            break;
+        default:
+            print("none of the options")
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -96,11 +122,15 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
-        view.frame.origin.y -= getKeyboardHeight(notification)
+        if bottomText.isFirstResponder{
+            view.frame.origin.y -= getKeyboardHeight(notification)
+        }
     }
     
     @objc func keyboardWillHide(){
-        view.frame.origin.y = 0
+        if bottomText.isFirstResponder{
+            view.frame.origin.y = 0
+        }
     }
     
     func subscribeToKeyboardNotification(){

@@ -20,15 +20,15 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JcO-zf-uyx">
                                 <rect key="frame" x="0.0" y="623" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="Gallery" id="a6I-f9-N0p" userLabel="Gallery">
+                                    <barButtonItem tag="1" title="Gallery" id="a6I-f9-N0p" userLabel="Gallery">
                                         <connections>
-                                            <action selector="pickImageFromGallery:" destination="BYZ-38-t0r" id="0nz-hr-Qgr"/>
+                                            <action selector="chooseImage:" destination="BYZ-38-t0r" id="QSy-ep-QEu"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem systemItem="flexibleSpace" id="iha-kw-JJX"/>
-                                    <barButtonItem title="Camera" id="FkU-wO-uDt">
+                                    <barButtonItem tag="2" title="Camera" id="FkU-wO-uDt">
                                         <connections>
-                                            <action selector="pickImageFromCamera:" destination="BYZ-38-t0r" id="O0R-TN-mOU"/>
+                                            <action selector="chooseImage:" destination="BYZ-38-t0r" id="AP7-Tz-Vpq"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
