@@ -41,14 +41,14 @@
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="sfn-c7-kmO">
-                                <rect key="frame" x="175" y="254" width="25" height="30"/>
+                                <rect key="frame" x="175" y="272" width="25" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TlK-Qb-81c">
-                                <rect key="frame" x="175" y="449" width="25" height="30"/>
+                                <rect key="frame" x="175" y="429" width="25" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="textColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -57,8 +57,8 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="TlK-Qb-81c" firstAttribute="top" secondItem="zJ9-za-qaa" secondAttribute="bottom" constant="-44.5" id="1tP-Uj-d3I"/>
-                            <constraint firstItem="zJ9-za-qaa" firstAttribute="top" secondItem="sfn-c7-kmO" secondAttribute="bottom" constant="-46.5" id="9Es-bo-Lg3"/>
+                            <constraint firstItem="TlK-Qb-81c" firstAttribute="top" secondItem="zJ9-za-qaa" secondAttribute="bottom" constant="-64.5" id="1tP-Uj-d3I"/>
+                            <constraint firstItem="zJ9-za-qaa" firstAttribute="top" secondItem="sfn-c7-kmO" secondAttribute="bottom" constant="-64.5" id="9Es-bo-Lg3"/>
                             <constraint firstItem="sfn-c7-kmO" firstAttribute="centerX" secondItem="zJ9-za-qaa" secondAttribute="centerX" id="SkB-GA-E7o"/>
                             <constraint firstItem="JcO-zf-uyx" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Z8H-OY-lFX"/>
                             <constraint firstItem="zJ9-za-qaa" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="dPg-Mb-3Bw"/>
