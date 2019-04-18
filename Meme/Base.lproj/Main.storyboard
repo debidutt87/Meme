@@ -33,7 +33,7 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zJ9-za-qaa">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zJ9-za-qaa">
                                 <rect key="frame" x="27" y="237.5" width="321" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="256" id="RWt-cg-W4W"/>
