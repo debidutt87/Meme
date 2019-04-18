@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MemeViewController.swift
 //  Meme
 //
 //  Created by Debidutt Prasad on 13/04/2019.
@@ -8,13 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate {
-
+class MemeViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UITextFieldDelegate {
+    
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
     @IBOutlet weak var topText: UITextField!
     @IBOutlet weak var bottomText: UITextField!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var toolbar: UIToolbar!
     
     struct Meme {
         var topText: String
@@ -23,7 +24,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         var memedImage :UIImage
     }
     
-    let memeTextAttributes: [NSAttributedString.Key: Any] = [
+    let textAttributes: [NSAttributedString.Key: Any] = [
         NSAttributedString.Key.foregroundColor : UIColor.white,
         NSAttributedString.Key.strokeColor : UIColor.black,
         NSAttributedString.Key.font : UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
@@ -32,77 +33,20 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        topText.delegate = self
-        bottomText.delegate = self
         setupTextField(tf: topText, text: "TOP")
         setupTextField(tf: bottomText, text: "BOTTOM")
-        
-//        shareButton.action = #selector(shareMemedImage)
-    }
-    
-    func setupTextField(tf: UITextField, text: String) {
-        tf.defaultTextAttributes = memeTextAttributes
-        tf.textColor = UIColor.white
-        tf.tintColor = UIColor.white
-        tf.textAlignment = .center
-        tf.text = text
-        tf.delegate = self
-    }
-    @IBAction func shareMemeImage(_ sender: Any) {
-        let memedImage = generateMemedImage()
-        let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
-        
-        activityController.completionWithItemsHandler = { activity, completed, items, error in
-            if completed {
-                self.save()
-                self.dismiss(animated: true, completion: nil)
-            }
-        }
-        
-        present(activityController, animated: true, completion: nil)
+        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
+        super.viewWillAppear(animated)
         subscribeToKeyboardNotification()
     }
     
     
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         unsubscribeToKeyboardNotification()
-    }
-    
-    func chooseImageFromCameraOrPhoto(source: UIImagePickerController.SourceType) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.allowsEditing = true
-        pickerController.sourceType = source
-        present(pickerController, animated: true, completion: nil)
-    }
-    
-    @IBAction func chooseImage(_ sender: Any){
-        switch (sender as AnyObject).tag {
-        case 1:
-            chooseImageFromCameraOrPhoto(source: .photoLibrary)
-            break;
-        case 2:
-            chooseImageFromCameraOrPhoto(source: .camera)
-            break;
-        default:
-            print("none of the options")
-        }
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info [.originalImage] as? UIImage {
-        imagePickerView.image = image
-        shareButton.isEnabled = true
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -114,10 +58,19 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         return true
     }
     
+    func setupTextField(tf: UITextField, text: String) {
+        tf.defaultTextAttributes = textAttributes
+        tf.textColor = UIColor.white
+        tf.tintColor = UIColor.white
+        tf.textAlignment = .center
+        tf.text = text
+        tf.delegate = self
+    }
+    
     func getKeyboardHeight(_ notification: Notification) -> CGFloat {
-       let userInfo = notification.userInfo
-       let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-       return keyboardSize.cgRectValue.height
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
@@ -146,17 +99,68 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         _ = Meme(topText: topText.text!, bottomText: bottomText.text!, originalImage: imagePickerView.image!, memedImage: generateMemedImage())
     }
     
-    func generateMemedImage() -> UIImage{
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    func chooseImageFromCameraOrPhoto(source: UIImagePickerController.SourceType) {
+        let pickerController = UIImagePickerController()
+        pickerController.delegate = self
+        pickerController.allowsEditing = true
+        pickerController.sourceType = source
+        present(pickerController, animated: true, completion: nil)
+    }
+    
+    @IBAction func chooseImage(_ sender: Any){
+        switch (sender as AnyObject).tag {
+        case 1:
+            chooseImageFromCameraOrPhoto(source: .photoLibrary)
+            break;
+        case 2:
+            chooseImageFromCameraOrPhoto(source: .camera)
+            break;
+        default:
+            print("none of the options")
+        }
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info [.originalImage] as? UIImage {
+            imagePickerView.image = image
+            shareButton.isEnabled = true
+        }
+        dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func shareMemeImage(_ sender: Any) {
+        let memedImage = generateMemedImage()
+        let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         
+        activityController.completionWithItemsHandler = { activity, completed, items, error in
+            if completed {
+                self.save()
+                self.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+        present(activityController, animated: true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    func generateMemedImage() -> UIImage{
+        
+        hideToolbars(true)
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
+        hideToolbars(false)
         
         return memedImage;
+    }
+    
+    func hideToolbars(_ hide: Bool){
+        self.navigationController?.setNavigationBarHidden(hide, animated: true)
+        toolbar.isHidden = hide
     }
 }
 

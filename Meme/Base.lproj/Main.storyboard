@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Meme View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Meme" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MemeViewController" customModule="Meme" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -88,6 +88,7 @@
                         <outlet property="cameraButton" destination="FkU-wO-uDt" id="fic-Nm-1d3"/>
                         <outlet property="imagePickerView" destination="zJ9-za-qaa" id="OIb-gq-kuw"/>
                         <outlet property="shareButton" destination="0NF-Vd-Oh0" id="QLe-lN-iLn"/>
+                        <outlet property="toolbar" destination="JcO-zf-uyx" id="fXm-Cf-EZc"/>
                         <outlet property="topText" destination="sfn-c7-kmO" id="Jhy-Si-Ykp"/>
                     </connections>
                 </viewController>
