@@ -37,7 +37,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         setupTextField(tf: topText, text: "TOP")
         setupTextField(tf: bottomText, text: "BOTTOM")
         
-        shareButton.action = #selector(shareMemedImage)
+//        shareButton.action = #selector(shareMemedImage)
     }
     
     func setupTextField(tf: UITextField, text: String) {
@@ -48,8 +48,7 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         tf.text = text
         tf.delegate = self
     }
-    
-    @objc func shareMemedImage(){
+    @IBAction func shareMemeImage(_ sender: Any) {
         let memedImage = generateMemedImage()
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
         

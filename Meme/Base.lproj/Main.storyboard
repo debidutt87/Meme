@@ -70,7 +70,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="ZQv-TI-ssU">
-                        <barButtonItem key="leftBarButtonItem" enabled="NO" systemItem="action" id="0NF-Vd-Oh0"/>
+                        <barButtonItem key="leftBarButtonItem" enabled="NO" systemItem="action" id="0NF-Vd-Oh0">
+                            <connections>
+                                <action selector="shareMemeImage:" destination="BYZ-38-t0r" id="3ES-6P-ihN"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
