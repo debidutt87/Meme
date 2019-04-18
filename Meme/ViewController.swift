@@ -34,8 +34,8 @@ class ViewController: UIViewController,UIImagePickerControllerDelegate,UINavigat
         super.viewDidLoad()
         topText.delegate = self
         bottomText.delegate = self
-        topText.defaultTextAttributes = memeTextAttributes
-        bottomText.defaultTextAttributes = memeTextAttributes
+        setupTextField(tf: topText, text: "TOP")
+        setupTextField(tf: bottomText, text: "BOTTOM")
         
         shareButton.action = #selector(shareMemedImage)
     }
